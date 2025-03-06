@@ -32,7 +32,6 @@ io.on('connection', (socket) => {
       }
 
       const data = await response.json();
-      console.log(data)
       if (!Array.isArray(data.jobs)) {
         throw new Error(`Unexpected API response format: ${JSON.stringify(data)}`);
       }
