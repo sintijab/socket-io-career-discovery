@@ -25,7 +25,7 @@ app.get('/health', (req, res) => {
 io.on('connection', (socket) => {
   const getOffers = async (country) => {
     try {
-      const response = await fetch(`https://co-fun-jobs.onrender.com/scrape-jobs?country=${country}`);
+      const response = await fetch(`https://winter-limit-2863.ploomber.app/api/scrape-jobs?country=${country}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
