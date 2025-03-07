@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'out')));
 import { Server } from "socket.io";
 const io = new Server(server, {
   cors: {
-    origin: 'https://cofun.digital',
+    origin: 'http://localhost:3000',
     methods: ["GET", "POST"],
   }
 });
@@ -25,7 +25,8 @@ app.get('/health', (req, res) => {
 io.on('connection', (socket) => {
   const getOffers = async (country) => {
     try {
-      const response = await fetch(`https://winter-limit-2863.ploomber.app/api/scrape-jobs?country=${country}`);
+      console.log(`http://127.0.0.1:8000/api/scrape-jobs?country=${country}`)
+      const response = await fetch(`http://127.0.0.1:8000/api/scrape-jobs?country=${country}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -95,7 +96,8 @@ io.on('connection', (socket) => {
           questions: ["Sorry, the job offers are limited to certain regions. Please search again later."]
         });
       }
-      const offers = await getOffers(arg2);
+      const encoded = encodeURIComponent(arg2);
+      const offers = await getOffers(encoded);
 
       if (!offers.length) {
         return callback({
