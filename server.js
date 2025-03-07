@@ -18,6 +18,15 @@ const io = new Server(server, {
   }
 });
 
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['https://cofun.digital']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  res.append('X-Frame-Options', 'https://cofun.digital');
+  next();
+});
+
+
 app.get('/health', (req, res) => {
   res.send({ message: 'Welcome to socket-io!' });
 });
@@ -25,8 +34,7 @@ app.get('/health', (req, res) => {
 io.on('connection', (socket) => {
   const getOffers = async (country) => {
     try {
-      console.log(`http://127.0.0.1:8000/api/scrape-jobs?country=${country}`)
-      const response = await fetch(`http://127.0.0.1:8000/api/scrape-jobs?country=${country}`);
+      const response = await fetch(`https://winter-limit-2863.ploomber.app//api/scrape-jobs?country=${country}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
