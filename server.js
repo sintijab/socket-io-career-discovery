@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'out')));
 import { Server } from "socket.io";
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'http://cofun.digital',
     methods: ["GET", "POST"],
   }
 });
