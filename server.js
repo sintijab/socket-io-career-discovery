@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 
 
 app.get('/health', (req, res) => {
-  res.send({ message: 'Welcome to socket-io!' });
+  res.send({ message: 'Ok' });
 });
 
 io.on('connection', (socket) => {
